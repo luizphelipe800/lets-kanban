@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import { useReducer, useEffect } from 'react';
+import Board from './components/Board';
+import Navbar from './components/Navbar';
+import { BoardProvider } from './contexts/BoardProvider';
+import { boardInitialState, boardReducer } from './reducers/boardReducer';
+import M from 'materialize-css';
 import './App.css';
+import 'materialize-css/dist/css/materialize.min.css';
 
-function App() {
+
+const App = () => {
+  const [ state, dispatch ] = useReducer(boardReducer, boardInitialState);
+
+  useEffect(() => {
+    M.AutoInit();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-container">
+    <BoardProvider value={{ state, dispatch }}>
+      <Navbar/>
+      <Board/>
+    </BoardProvider>
     </div>
   );
 }
