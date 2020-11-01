@@ -32,6 +32,21 @@ export const boardReducer = (state, action) => {
         )
     }
 
+    if(action.type === 'REMOVE'){
+        const { columnId, itemId } = action.payload;
+        const { items } = state[columnId];
+        const newItems = items.filter(item => item.id !== itemId);
+        
+
+        return {
+            ...state,
+            [columnId]: {
+                ...state[columnId],
+                items: newItems
+            }
+        }
+    }
+
     if(action.type === 'CHANGE'){
         return state = { ...action.payload }
     }

@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { boardContext } from '../../contexts/BoardProvider';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import TaskInput from '../TaskInput';
+import RemoveTask from '../RemoveTask';
 import './style.css';
 
 const onDragEnd = (result, columns, dispatch) => {
@@ -86,15 +87,20 @@ const Board = () => {
                                             ref={ provided.innerRef }
                                             style={{
                                                 userSelect: 'none',
-                                                padding: 16,
                                                 margin: '0 0 8px 0',
                                                 minHeight: '50px',
                                                 backgroundColor: snapshot.isDragging ? '#2D89AB' : '#3BAFDA',
                                                 color: '#232323',
                                                 ...provided.draggableProps.style
                                             }}
+                                            className="card"
                                         >
-                                            { item.content }
+                                            <div className="card-content">
+                                                { item.content }
+                                            </div>
+                                            <div className="card-action">
+                                                <RemoveTask columnId={id} itemId={item.id}/>
+                                            </div>
                                         </div>
                                     )}
                                 </Draggable>
